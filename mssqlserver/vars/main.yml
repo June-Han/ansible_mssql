@@ -15,3 +15,5 @@ mmcPath: C:\Windows\System32\mmc.exe
 #MSSQL Server Name (typically windows host name)
 ServerName: WIN-H3KH6CQT82B
 ServerType: standalone #alwayson
+
+replica_name: abc

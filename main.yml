@@ -29,8 +29,7 @@
       name: mssqlserver
       tasks_from: failover.yml
     vars:
-      replica: abc
+      replica_name: abc
       AGNAME: def
-      SecNode: ghijk
     when:
       ServerType: alwayson

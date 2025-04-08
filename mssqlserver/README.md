@@ -1,22 +1,46 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+MSSQL Server Playbooks for Standalone and failover cluster.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Windows Servers
+- A cluster in an Availability Group joined to a domain network
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### vars file for mssqlserver for LinuxInstall.yml (for install, upgrade, uninstall, patch may not require)
+- `mssql_password` : Password123!
+- `mssql_edition` : Standard
+
+### Defining Installation Configuration Folder
+- `configtemplate` : configuration file
+
+### Defining Defaults for setup executable
+- `setupexecutable : SQLServer2019-KB5049235-x64
+
+### Defining Defaults for the checking of services (May not be necessary)
+- `SQLServerManager` : SQLServerManager15.msc
+- `mmcPath` : C:\Windows\System32\mmc.exe
+
+### MSSQL Server Name (typically windows host name)
+- `ServerName` : AAPWIACDBDV02P
+- `ServerType` : standalone #alwayson
+
+- `replica_name` : abc
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+  collections:
+      - community.general
+      - microsoft.sql
+      - ansible.posix
+      - ansible.windows
+      - community.windows
 
 Example Playbook
 ----------------
@@ -24,8 +48,11 @@ Example Playbook
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+      tasks:
+      - name: Install/Patch/Uninstall/Upgrade Microsoft SQL Server 2019
+        ansible.builtin.include_role:
+          name: mssqlserver
+          tasks_from: WindowsInstall.yml
 
 License
 -------

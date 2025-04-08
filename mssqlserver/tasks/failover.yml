@@ -8,7 +8,7 @@
     src: 'files/failovercheck.j2'
     dest: 'C:\temp\failovercheck.sql'
   vars:
-    replica: WIN-12345
+    replica_name: WIN-12345
 
 #Retrieve Failover Ready
 - name: Connect to SQL Server and Check if failover ready
@@ -27,7 +27,7 @@
     dest: 'C:\temp\failover.sql'
   vars:
     AGNAME: AAP_SharedDB_AlwaysOn
-    SecNode: WIN-H3KH6CQT82B
+    replica_name: WIN-H3KH6CQT82B
   when:
     failoverCheck.stdout | int == 1
 
