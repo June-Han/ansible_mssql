@@ -1,0 +1,36 @@
+---
+- name: Actions for MSSQL in a provisioned VM
+  hosts: windows
+  become: true
+  become_method: runas
+  become_user: ansible
+  gather_facts: true
+  tasks:
+  - name: Install/Patch/Uninstall/Upgrade Microsoft SQL Server 2019
+    ansible.builtin.include_role:
+      name: mssqlserver
+      tasks_from: WindowsInstall.yml
+    # vars:
+    #   configtemplate: config2019install.j2
+    #   install_iso_version: SQLServer2019-x64-ENU.iso
+
+  # - name: Reboot the Server
+  #   ansible.windows.win_reboot:
+  #   # reboot_timeout: 3600
+
+  #Install SSMS beforehand
+  - name: Perform Checks from SSMS
+    ansible.builtin.include_role:
+      name: mssqlserver
+      tasks_from: MSSQLCheck.yml
+
+  - name: Failover
+    ansible.builtin.include_role:
+      name: mssqlserver
+      tasks_from: failover.yml
+    vars:
+      replica: abc
+      AGNAME: def
+      SecNode: ghijk
+    when:
+      ServerType: alwayson

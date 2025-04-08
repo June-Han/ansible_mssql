@@ -1,0 +1,39 @@
+---
+#Debug will show the services running for MSSQLServer during the install/upgrade/update
+#(Extra Step if necessary)
+# - name: Install/Patch Standalone instance (Extra Step)
+#   ansible.windows.win_powershell:
+#     script: |
+#       $mscPath = "C:\Windows\SysWOW64\{{ SQLServerManager }}"
+#       Start-Process -FilePath $mscPath -ArgumentList ${{ mmcPath }}
+
+
+#Connect to SQL Server Management Studio (SSMS) Windows Authentication
+#Retrieve Server name
+- name: Connect to SQL Server and run SQL commands
+  ansible.windows.win_powershell:
+    script: 'Sqlcmd -S {{ ServerName }} -E -C -Q "print @@servername; print @@version;"'
+  register: StudioServerInfo
+
+- name: Message from (SSMS)
+  ansible.builtin.debug:
+    var: StudioServerInfo.stdout
+
+#Retrieve all information seen on dashboard
+- name: SSMS Dashboard using SQL commands
+  ansible.windows.win_powershell:
+    script: 'Sqlcmd -S {{ ServerName }} -E -C -i "files/ssms_dashboard.sql"'
+  register: StudioDashboardSQLInfo
+
+- name: Message from (SSMS)
+  ansible.builtin.debug:
+    var: StudioDashboardSQLInfo.stdout
+
+# - name: SSMS Dashboard using Powershell Functions
+#   ansible.windows.win_powershell:
+#     script: |
+#       . ./files/ssmsDashboardFunc.ps1
+#       Get-AvailabilityGroupStatus -ServerInstanceList "C:\temp\servers.txt"
+#       Get-SqlAvailabilityReplicaStatus -ServerInstanceList "C:\temp\servers.txt"
+#       Get-SqlDatabaseReplicaStatus -ServerInstanceList "C:\temp\servers.txt"
+#   register: StudioDashboardSQLInfo

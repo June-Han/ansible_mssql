@@ -1,0 +1,13 @@
+---
+# tasks file for mssqlserver
+# - name: Install MSSQL Server on Linux
+#   ansible.builtin.include_tasks:
+#     file: LinuxInstall.yml
+
+# - name: Install MSSQL Server on Windows Server
+#   ansible.builtin.include_tasks:
+#     file: WindowsInstall.yml
+
+# - name: Uninstall MSSQL Server on Windows Server
+#   ansible.builtin.include_tasks:
+#     file: WindowsUninstall.yml

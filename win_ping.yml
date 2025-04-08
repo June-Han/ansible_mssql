@@ -1,0 +1,11 @@
+---
+- name: Installing MSSQL in a provisioned VM
+  hosts: windows
+  become: true
+  become_method: runas
+  become_user: ansible
+  gather_facts: true
+  tasks:
+  - name: Test Connection
+    ansible.windows.win_ping:
+      data: crashing pong 

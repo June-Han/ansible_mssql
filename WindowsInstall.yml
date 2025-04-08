@@ -1,0 +1,16 @@
+---
+# File for Ansible UI (Install/Patch Microsoft SQL Server) - For Reference as can repeat main.yml in template instead
+- name: Actions for MSSQL in a provisioned VM
+  hosts: windows
+  become: true
+  become_method: runas
+  become_user: ansible
+  gather_facts: true
+  tasks:
+  - name: Install/Patch Microsoft SQL Server (2019)
+    ansible.builtin.include_role:
+      name: mssqlserver
+      tasks_from: WindowsInstall.yml
+    # vars:
+    #   configtemplate: config2019install.j2
+    #   install_iso_version: SQLServer2019-x64-ENU.iso

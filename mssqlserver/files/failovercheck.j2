@@ -1,0 +1,10 @@
+use master;
+declare @result1 int;
+set @result1 = (SELECT is_failover_ready 
+FROM sys.dm_hadr_database_replica_cluster_states
+WHERE replica_id = (SELECT replica_id FROM sys.availability_replicas 
+WHERE replica_server_name = '{{replica}}'));
+if @result1 is null 
+    print -1;
+else
+    print @result1;

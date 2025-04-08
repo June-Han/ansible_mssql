@@ -1,0 +1,50 @@
+- name: Create temp folder on target
+  ansible.windows.win_file:
+    path: 'C:\temp'
+    state: directory
+
+- name: Replica Name SQL
+  ansible.builtin.template:
+    src: 'files/failovercheck.j2'
+    dest: 'C:\temp\failovercheck.sql'
+  vars:
+    replica: WIN-12345
+
+#Retrieve Failover Ready
+- name: Connect to SQL Server and Check if failover ready
+  ansible.windows.win_powershell:
+    script: 'Sqlcmd -S {{ ServerName }} -E -C -i "C:\temp\failovercheck.sql"'
+  register: failoverCheck
+
+- name: Message from (SSMS)
+  ansible.builtin.debug:
+    var: failoverCheck.stdout
+
+#Failover
+- name: Failover SQL prep
+  ansible.builtin.template:
+    src: 'files/failover.j2'
+    dest: 'C:\temp\failover.sql'
+  vars:
+    AGNAME: AAP_SharedDB_AlwaysOn
+    SecNode: WIN-H3KH6CQT82B
+  when:
+    failoverCheck.stdout | int == 1
+
+- name: Connect to SQL Server and Check if failover ready
+  ansible.windows.win_powershell:
+    script: 'Sqlcmd -S {{ ServerName }} -E -C -i "C:\temp\failover.sql"'
+  register: failover
+  when:
+    failoverCheck.stdout | int == 1
+
+- name: Message from (SSMS)
+  ansible.builtin.debug:
+    var: failover.stdout
+  when:
+    failoverCheck.stdout | int == 1
+
+- name: Cleanup temp directory
+  ansible.windows.win_file:
+    path: 'C:\temp'
+    state: absent

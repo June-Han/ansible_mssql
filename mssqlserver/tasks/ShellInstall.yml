@@ -1,0 +1,15 @@
+# - name: Install MSSQL using Chocolatey
+#   win_chocolatey:
+#     name: sql-server-2019
+#     state: present
+- name: Install MSSQL Server using mssql_install_powershell
+  hosts: windows
+  become: true
+  become_method: runas
+  become_user: ansible
+  gather_facts: true
+  tasks:
+  - name: Powershell Script
+    ansible.windows.win_powershell:
+      script: |
+        Start-Process -FilePath "{{ mssql_iso_image.mount_paths[0] }}setup.exe /ConfigurationFile=C:\temp\Configuration.ini" -ArgumentList "/quiet /IAcceptSQLServerLicenseTerms /Action=Patch" -Wait

@@ -1,0 +1,16 @@
+---
+# File for Ansible UI (Upgrade MSSQL Server) - For Reference as can repeat main.yml in template instead
+- name: Actions for MSSQL in a provisioned VM
+  hosts: windows
+  become: true
+  become_method: runas
+  become_user: ansible
+  gather_facts: true
+  tasks:
+  - name: Upgrade Microsoft SQL Server (2019 to 2022)
+    ansible.builtin.include_role:
+      name: mssqlserver
+      tasks_from: WindowsInstall.yml
+    # vars:
+    #   configtemplate: config2022upgrade.j2
+    #   install_iso_version: SQLServer2022-x64-ENU.iso

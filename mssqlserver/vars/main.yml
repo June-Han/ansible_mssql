@@ -1,0 +1,17 @@
+---
+# vars file for mssqlserver
+mssql_password: Password123!
+mssql_edition: Standard
+
+# Defining Defaults for uninstall
+configtemplate: configUninstall.j2
+
+# Defining Defaults for install/patch/upgrade
+install_iso_version: SQLServer2019-x64-ENU.iso
+
+SQLServerManager: SQLServerManager15.msc
+mmcPath: C:\Windows\System32\mmc.exe
+
+#MSSQL Server Name (typically windows host name)
+ServerName: WIN-H3KH6CQT82B
+ServerType: standalone #alwayson
