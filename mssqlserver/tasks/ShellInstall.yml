@@ -3,13 +3,15 @@
 #     name: sql-server-2019
 #     state: present
 - name: Install MSSQL Server using mssql_install_powershell
-  hosts: windows
-  become: true
-  become_method: runas
-  become_user: ansible
-  gather_facts: true
-  tasks:
-  - name: Powershell Script
-    ansible.windows.win_powershell:
-      script: |
-        Start-Process -FilePath "{{ mssql_iso_image.mount_paths[0] }}setup.exe /ConfigurationFile=C:\temp\Configuration.ini" -ArgumentList "/quiet /IAcceptSQLServerLicenseTerms /Action=Patch" -Wait
+  ansible.windows.win_powershell:
+    script: |
+      Start-Process -FilePath "{{install_dir}}{{setupexecutable}} -ArgumentList "{{argument_list}}" -Wait
+
+- name: Retrieve Microsoft SQL Server Service Status
+  ansible.windows.win_service:
+    name: 'MSSQLSERVER'
+  register: service_info
+
+- name: Print the Service Information Status
+  ansible.builtin.debug:
+    var: service_info

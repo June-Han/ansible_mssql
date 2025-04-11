@@ -6,6 +6,10 @@ mssql_edition: Standard
 # Defining Defaults for uninstall
 configtemplate: configUninstall.j2
 
+#Installation Directory
+install_dir: C:\Windows\ccmcache\Temp\
+argument_list: /quiet /IAcceptSQLServerLicenseTerms /Action=Patch
+
 # Defining Defaults for install/patch/upgrade
 install_iso_version: SQLServer2019-x64-ENU.iso
 
