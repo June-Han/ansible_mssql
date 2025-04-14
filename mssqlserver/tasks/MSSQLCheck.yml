@@ -13,6 +13,10 @@
     script: 'Get-WmiObject -Class Win32_ComputerSystem | Select-Object Name'
   register: ServerName
 
+- name: Message from (SSMS)
+  ansible.builtin.debug:
+    var: Server.stdout
+
 #Connect to SQL Server Management Studio (SSMS) Windows Authentication
 #Retrieve Server name
 - name: Connect to SQL Server using SSMS (Retrieve Server Name & Version)
