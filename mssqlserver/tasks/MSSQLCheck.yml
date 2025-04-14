@@ -28,7 +28,7 @@
     script: 'Sqlcmd -S {{ ServerName.output[0].Name }} -E -C -Q "print @@servername; print @@version;"'
   register: StudioServerInfo
 
-- name: Message from (SSMS)
+- name: Server Name and Version from (SSMS)
   ansible.builtin.debug:
     var: StudioServerInfo.output
 
