@@ -2,10 +2,31 @@
 #   win_chocolatey:
 #     name: sql-server-2019
 #     state: present
+
+- name: Mount ISO
+  community.windows.win_disk_image:
+    image_path: 'C:\{{ install_iso_version }}'
+    state: present
+  register: mssql_iso_image
+
+- name: Debug MSSQL ISO image
+  ansible.builtin.debug:
+    var: mssql_iso_image.mount_paths[0]
+
+# - name: Install MSSQL Server using mssql_install_powershell
+#   ansible.windows.win_powershell:
+#     script: |
+#       Start-Process -FilePath "{{install_dir}}{{setupexecutable}} -ArgumentList "{{argument_list}}" -Wait
+
 - name: Install MSSQL Server using mssql_install_powershell
   ansible.windows.win_powershell:
     script: |
-      Start-Process -FilePath "{{install_dir}}{{setupexecutable}} -ArgumentList "{{argument_list}}" -Wait
+      Start-Process -FilePath "{{ mssql_iso_image.mount_paths[0]}}setup.exe -ArgumentList "{{argument_list}}" -Wait
+
+- name: Unmount ISO
+  community.windows.win_disk_image:
+    image_path: 'C:\{{ install_iso_version }}'
+    state: absent
 
 - name: Retrieve Microsoft SQL Server Service Status
   ansible.windows.win_service:

@@ -14,6 +14,15 @@
     #   configtemplate: config2019install.j2
     #   install_iso_version: SQLServer2019-x64-ENU.iso
 
+  - name: Patch Microsoft SQL Server 2019
+    ansible.builtin.include_role:
+      name: mssqlserver
+      tasks_from: ShellInstall.yml
+    vars:
+        setupexecutable: "{{ setupexecutable | default('')}}"
+        install_dir: "{{ install_dir  | default('')}}"
+        argument_list: "{{ argument_list| default('')}}"
+
   # - name: Reboot the Server
   #   ansible.windows.win_reboot:
   #   # reboot_timeout: 3600
