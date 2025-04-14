@@ -35,7 +35,7 @@
 #Retrieve all information seen on dashboard
 - name: SSMS Dashboard using SQL commands
   ansible.windows.win_powershell:
-    script: 'Sqlcmd -S {{ ServerName.stdout }} -E -C -i "files/ssms_dashboard.sql"'
+    script: 'Sqlcmd -S {{ ServerName.output[0].Name }} -E -C -i "files/ssms_dashboard.sql"'
   register: StudioDashboardSQLInfo
 
 - name: Message from (SSMS)
