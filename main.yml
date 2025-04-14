@@ -6,13 +6,13 @@
   become_user: ansible
   gather_facts: true
   tasks:
-  - name: Install/Patch/Uninstall/Upgrade Microsoft SQL Server 2019
-    ansible.builtin.include_role:
-      name: mssqlserver
-      tasks_from: WindowsInstall.yml
-    # vars:
-    #   configtemplate: config2019install.j2
-    #   install_iso_version: SQLServer2019-x64-ENU.iso
+  # - name: Install/Patch/Uninstall/Upgrade Microsoft SQL Server 2019
+  #   ansible.builtin.include_role:
+  #     name: mssqlserver
+  #     tasks_from: WindowsInstall.yml
+  #   # vars:
+  #   #   configtemplate: config2019install.j2
+  #   #   install_iso_version: SQLServer2019-x64-ENU.iso
 
   - name: Patch Microsoft SQL Server 2019
     ansible.builtin.include_role:
