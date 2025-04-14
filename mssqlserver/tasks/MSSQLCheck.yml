@@ -25,12 +25,12 @@
 #Retrieve Server name
 - name: Connect to SQL Server using SSMS (Retrieve Server Name & Version)
   ansible.windows.win_powershell:
-    script: 'Sqlcmd -S {{ ServerName.stdout }} -E -C -Q "print @@servername; print @@version;"'
+    script: 'Sqlcmd -S {{ ServerName.output[0].Name }} -E -C -Q "print @@servername; print @@version;"'
   register: StudioServerInfo
 
 - name: Message from (SSMS)
   ansible.builtin.debug:
-    var: StudioServerInfo.stdout
+    var: StudioServerInfo.output
 
 #Retrieve all information seen on dashboard
 - name: SSMS Dashboard using SQL commands
@@ -40,7 +40,7 @@
 
 - name: Message from (SSMS)
   ansible.builtin.debug:
-    var: StudioDashboardSQLInfo.stdout
+    var: StudioDashboardSQLInfo.output
 
 # - name: SSMS Dashboard using Powershell Functions
 #   ansible.windows.win_powershell:
