@@ -21,7 +21,7 @@
 #Retrieve Server name
 - name: Connect to SQL Server using SSMS (Retrieve Server Name & Version)
   ansible.windows.win_powershell:
-    script: 'Sqlcmd -S {{ ServerName }} -E -C -Q "print @@servername; print @@version;"'
+    script: 'Sqlcmd -S {{ ServerName.stdout }} -E -C -Q "print @@servername; print @@version;"'
   register: StudioServerInfo
 
 - name: Message from (SSMS)
