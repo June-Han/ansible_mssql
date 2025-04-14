@@ -15,7 +15,7 @@
 
 - name: Message from (SSMS)
   ansible.builtin.debug:
-    var: Server.stdout
+    var: ServerName.stdout
 
 #Connect to SQL Server Management Studio (SSMS) Windows Authentication
 #Retrieve Server name
