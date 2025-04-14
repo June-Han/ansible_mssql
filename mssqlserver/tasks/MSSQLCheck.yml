@@ -7,8 +7,8 @@
 #       $mscPath = "C:\Windows\SysWOW64\{{ SQLServerManager }}"
 #       Start-Process -FilePath $mscPath -ArgumentList ${{ mmcPath }}
 
-#Retrieve Device Name
-- name: Retrieve device name
+#Retrieve Device/Host/Server Name
+- name: Retrieve device/Host/Server name
   ansible.windows.win_powershell:
     script: 'Get-WmiObject -Class Win32_ComputerSystem | Select-Object Name'
   register: ServerName
@@ -38,7 +38,7 @@
     script: 'Sqlcmd -S {{ ServerName.output[0].Name }} -E -C -i "files/ssms_dashboard.sql"'
   register: StudioDashboardSQLInfo
 
-- name: Message from (SSMS)
+- name: Dashboard Information from (SSMS)
   ansible.builtin.debug:
     var: StudioDashboardSQLInfo.output
 

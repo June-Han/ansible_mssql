@@ -8,7 +8,7 @@ configtemplate: configUninstall.j2
 
 #Installation Directory
 install_dir: C:\Windows\ccmcache\Temp\
-argument_list: /quiet /IAcceptSQLServerLicenseTerms /Action=Install
+argument_list: /quiet /IAcceptSQLServerLicenseTerms /Action=Install /FEATURES=SQLENGINE,CONN,SDK,SNAC_SDK /INSTANCENAME="MSSQLSERVER"  /SQLSVCACCOUNT="NT Service\MSSQLSERVER" /AGTSVCACCOUNT="NT Service\SQLSERVERAGENT" 
 
 # Defining Defaults for install/patch/upgrade
 install_iso_version: SQLServer2019-x64-ENU.iso
