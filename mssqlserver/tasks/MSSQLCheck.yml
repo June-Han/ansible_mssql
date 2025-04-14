@@ -7,10 +7,15 @@
 #       $mscPath = "C:\Windows\SysWOW64\{{ SQLServerManager }}"
 #       Start-Process -FilePath $mscPath -ArgumentList ${{ mmcPath }}
 
+#Retrieve Device Name
+- name: Retrieve device name
+  ansible.windows.win_powershell:
+    script: 'Get-WmiObject -Class Win32_ComputerSystem | Select-Object Name'
+  register: ServerName
 
 #Connect to SQL Server Management Studio (SSMS) Windows Authentication
 #Retrieve Server name
-- name: Connect to SQL Server and run SQL commands
+- name: Connect to SQL Server using SSMS (Retrieve Server Name & Version)
   ansible.windows.win_powershell:
     script: 'Sqlcmd -S {{ ServerName }} -E -C -Q "print @@servername; print @@version;"'
   register: StudioServerInfo

@@ -14,6 +14,12 @@
   #   #   configtemplate: config2019install.j2
   #   #   install_iso_version: SQLServer2019-x64-ENU.iso
 
+    #Install SSMS beforehand
+  - name: Perform Checks from SSMS
+    ansible.builtin.include_role:
+      name: mssqlserver
+      tasks_from: MSSQLCheck.yml
+
   - name: Patch Microsoft SQL Server 2019
     ansible.builtin.include_role:
       name: mssqlserver
