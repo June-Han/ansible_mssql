@@ -12,7 +12,7 @@
     path: 'C:\temp'
     state: directory
 
-- name: Copy ISO to target
+- name: Copy dashboard sql to target
   ansible.windows.win_copy:
     src: 'files/ssms_dashboard.sql'
     dest: 'C:\temp\'
