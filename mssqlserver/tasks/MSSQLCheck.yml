@@ -7,6 +7,16 @@
 #       $mscPath = "C:\Windows\SysWOW64\{{ SQLServerManager }}"
 #       Start-Process -FilePath $mscPath -ArgumentList ${{ mmcPath }}
 
+- name: Create temp folder on target
+  ansible.windows.win_file:
+    path: 'C:\temp'
+    state: directory
+
+- name: Copy ISO to target
+  ansible.windows.win_copy:
+    src: 'files/ssms_dashboard.sql'
+    dest: 'C:\temp\'
+
 #Retrieve Device/Host/Server Name
 - name: Retrieve device/Host/Server name
   ansible.windows.win_powershell:
@@ -35,7 +45,7 @@
 #Retrieve all information seen on dashboard
 - name: SSMS Dashboard using SQL commands
   ansible.windows.win_powershell:
-    script: 'Sqlcmd -S {{ ServerName.output[0].Name }} -E -C -i "files/ssms_dashboard.sql"'
+    script: 'Sqlcmd -S {{ ServerName.output[0].Name }} -E -C -i "C:\temp\ssms_dashboard.sql"'
   register: StudioDashboardSQLInfo
 
 - name: Dashboard Information from (SSMS)
