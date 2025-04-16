@@ -25,7 +25,7 @@
 
 - name: Patch Standalone instance
   ansible.windows.win_command:
-    script: '{{patch_dir}}{{patch_name}}.exe /ConfigurationFile=C:\temp\Configuration.ini'
+    cmd: '{{patch_dir}}{{patch_name}}.exe /ConfigurationFile=C:\temp\Configuration.ini'
 
 # - name: Check Version
 #   ansible.builtin.include_tasks:
