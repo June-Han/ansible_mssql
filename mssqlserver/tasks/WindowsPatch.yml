@@ -45,4 +45,4 @@
 
 - name: Server Name and Version from (SSMS)
   ansible.builtin.debug:
-    var: file_content
+    var: file_content.output
