@@ -12,4 +12,4 @@
     # vars:
     #   configtemplate: configpatch.j2
     #   patch_name: SQLServer2019-KB5054833-x64
-    #   patch_dir: C:\temp
+    #   patch_dir: C:\
