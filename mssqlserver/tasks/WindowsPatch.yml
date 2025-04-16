@@ -36,7 +36,7 @@
     file: MSSQLCheck.yml
 
 - name: Get Status from Logs
-  ansible.builtin.win_powershell:
+  ansible.windows.win_powershell:
     script: | 
       Get-Content 'C:\Program Files\Microsoft SQL Server\{{folder_no}}\Setup Bootstrap\Log\Summary.txt' | Select -First 7
   vars: 
