@@ -11,4 +11,5 @@
       tasks_from: WindowsPatch.yml
     # vars:
     #   configtemplate: configpatch.j2
-    #   install_iso_version: SQLServer2019-KB5054833-x64
+    #   patch_name: SQLServer2019-KB5054833-x64
+    #   patch_dir: C:\temp
