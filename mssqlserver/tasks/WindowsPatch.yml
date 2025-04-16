@@ -33,7 +33,7 @@
 
 # - name: Patch Standalone instance
 #   ansible.windows.win_powershell:
-#     script: '{{patch_dir}}{{patch_name}}.exe /quiet /IAcceptSQLServerLicenseTerms /Action=Patch -Wait -PassThru'
+#     script: '{{patch_dir}}{{patch_name}}.exe /quiet /IAcceptSQLServerLicenseTerms /Action=Patch -Wait'
 
 - name: Microsoft SQL Server Service Info After
   ansible.windows.win_service:
