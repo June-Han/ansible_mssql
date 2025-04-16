@@ -10,15 +10,6 @@
     src: 'files/{{ configtemplate }}'
     dest: 'C:\temp\Configuration.ini'
 
-- name: Microsoft SQL Server Service Info Before
-  ansible.windows.win_service:
-    name: 'MSSQLSERVER'
-  register: service_info
-
-- name: Print the Service Information Before
-  ansible.builtin.debug:
-    var: service_info
-
 - name: Check Version
   ansible.builtin.include_tasks:
     file: MSSQLCheck.yml
@@ -35,15 +26,6 @@
 #   ansible.windows.win_powershell:
 #     script: '{{patch_dir}}{{patch_name}}.exe /quiet /IAcceptSQLServerLicenseTerms /Action=Patch -Wait'
 
-- name: Microsoft SQL Server Service Info After
-  ansible.windows.win_service:
-    name: 'MSSQLSERVER'
-  register: service_info
-
-- name: Print the Service Information After
-  ansible.builtin.debug:
-    var: service_info
-
 - name: Cleanup temp directory
   ansible.windows.win_file:
     path: 'C:\temp'
@@ -52,3 +34,15 @@
 - name: Check Version
   ansible.builtin.include_tasks:
     file: MSSQLCheck.yml
+
+- name: Get Status from Logs
+  ansible.builtin.win_powershell:
+    script: | 
+      Get-Content 'C:\Program Files\Microsoft SQL Server\{{folder_no}}\Setup Bootstrap\Log\Summary.txt' | Select -First 7
+  vars: 
+    folder_no: 150
+  register: file_content
+
+- name: Server Name and Version from (SSMS)
+  ansible.builtin.debug:
+    var: file_content
