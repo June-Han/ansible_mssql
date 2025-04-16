@@ -25,7 +25,15 @@
 
 - name: Patch Standalone instance
   ansible.windows.win_powershell:
-    script: '{{patch_dir}}{{patch_name}}.exe /ConfigurationFile=C:\temp\Configuration.ini'
+    script: '{{patch_dir}}{{patch_name}}.exe /ConfigurationFile=C:\temp\Configuration.ini -Wait'
+
+- name: Check Version
+  ansible.builtin.include_tasks:
+    file: MSSQLCheck.yml
+
+- name: Patch Standalone instance
+  ansible.windows.win_powershell:
+    script: '{{patch_dir}}{{patch_name}}.exe /quiet /IAcceptSQLServerLicenseTerms /Action=Patch -Wait -PassThru'
 
 - name: Microsoft SQL Server Service Info After
   ansible.windows.win_service:
