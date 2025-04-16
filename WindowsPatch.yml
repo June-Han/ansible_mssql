@@ -1,0 +1,14 @@
+- name: Actions for MSSQL in a provisioned VM
+  hosts: windows
+  become: true
+  become_method: runas
+  become_user: ansible
+  gather_facts: true
+  tasks:
+  - name: Patch Microsoft SQL Server (2019)
+    ansible.builtin.include_role:
+      name: mssqlserver
+      tasks_from: WindowsPatch.yml
+    # vars:
+    #   configtemplate: configpatch.j2
+    #   install_iso_version: SQLServer2019-KB5054833-x64

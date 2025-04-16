@@ -7,7 +7,7 @@
   become_user: ansible
   gather_facts: true
   tasks:
-  - name: Install/Patch Microsoft SQL Server (2019)
+  - name: Install Microsoft SQL Server (2019)
     ansible.builtin.include_role:
       name: mssqlserver
       tasks_from: WindowsInstall.yml

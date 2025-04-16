@@ -1,0 +1,46 @@
+---
+- name: Create temp folder on target
+  ansible.windows.win_file:
+    path: 'C:\temp'
+    state: directory
+
+# src: 'files/configpatch.j2'
+- name: Copy the configuration.ini file to target
+  ansible.builtin.template:
+    src: 'files/{{ configtemplate }}'
+    dest: 'C:\temp\Configuration.ini'
+
+- name: Microsoft SQL Server Service Info Before
+  ansible.windows.win_service:
+    name: 'MSSQLSERVER'
+  register: service_info
+
+- name: Print the Service Information Before
+  ansible.builtin.debug:
+    var: service_info
+
+- name: Check Version
+  ansible.builtin.include_tasks:
+    file: MSSQLCheck.yml
+
+- name: Patch Standalone instance
+  ansible.windows.win_powershell:
+    script: '{{patch_name}}.exe /ConfigurationFile=C:\temp\Configuration.ini'
+
+- name: Microsoft SQL Server Service Info After
+  ansible.windows.win_service:
+    name: 'MSSQLSERVER'
+  register: service_info
+
+- name: Print the Service Information After
+  ansible.builtin.debug:
+    var: service_info
+
+- name: Cleanup temp directory
+  ansible.windows.win_file:
+    path: 'C:\temp'
+    state: absent
+
+- name: Check Version
+  ansible.builtin.include_tasks:
+    file: MSSQLCheck.yml

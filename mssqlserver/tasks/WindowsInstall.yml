@@ -38,7 +38,7 @@
   ansible.builtin.debug:
     var: service_info
 
-- name: Install/Patch Standalone instance
+- name: Install Standalone instance
   ansible.windows.win_powershell:
     script: '{{ mssql_iso_image.mount_paths[0]}}setup.exe /ConfigurationFile=C:\temp\Configuration.ini'
       
