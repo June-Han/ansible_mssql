@@ -23,9 +23,9 @@
     script: 'Get-WmiObject -Class Win32_ComputerSystem | Select-Object Name'
   register: ServerName
 
-- name: Message from (SSMS) [V1]
-  ansible.builtin.debug:
-    var: ServerName
+# - name: Message from (SSMS) [V1]
+#   ansible.builtin.debug:
+#     var: ServerName
 
 - name: Message from (SSMS) [V2]
   ansible.builtin.debug:
@@ -42,15 +42,15 @@
   ansible.builtin.debug:
     var: StudioServerInfo.output
 
-#Retrieve all information seen on dashboard
-- name: SSMS Dashboard using SQL commands
-  ansible.windows.win_powershell:
-    script: 'Sqlcmd -S {{ ServerName.output[0].Name }} -E -C -i "C:\temp\ssms_dashboard.sql"'
-  register: StudioDashboardSQLInfo
+# #Retrieve all information seen on dashboard
+# - name: SSMS Dashboard using SQL commands
+#   ansible.windows.win_powershell:
+#     script: 'Sqlcmd -S {{ ServerName.output[0].Name }} -E -C -i "C:\temp\ssms_dashboard.sql"'
+#   register: StudioDashboardSQLInfo
 
-- name: Dashboard Information from (SSMS)
-  ansible.builtin.debug:
-    var: StudioDashboardSQLInfo.output
+# - name: Dashboard Information from (SSMS)
+#   ansible.builtin.debug:
+#     var: StudioDashboardSQLInfo.output
 
 # - name: SSMS Dashboard using Powershell Functions
 #   ansible.windows.win_powershell:
