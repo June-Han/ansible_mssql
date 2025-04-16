@@ -24,8 +24,8 @@
     file: MSSQLCheck.yml
 
 - name: Patch Standalone instance
-  ansible.windows.win_command:
-    cmd: '{{patch_dir}}{{patch_name}}.exe /ConfigurationFile=C:\temp\Configuration.ini'
+  ansible.windows.win_powershell:
+    script: '{{patch_dir}}{{patch_name}}.exe /ConfigurationFile=C:\temp\Configuration.ini /IAcceptSQLServerLicenseTerms=True'
 
 # - name: Check Version
 #   ansible.builtin.include_tasks:
