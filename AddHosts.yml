@@ -1,0 +1,29 @@
+---
+- name: Sync hosts ini file into Ansible inventory
+  hosts: localhost
+  gather_facts: false
+  vars:
+    #inventory_file: "/collections/hosts"
+    git_repo_dir: "{{ playbook_dir }}"
+    git_commit_msg: "Auto-sync inventory"
+
+  tasks:
+    - name: Print git repo
+      ansible.builtin.debug:
+        var: git_repo_dir
+
+    - name: Write hosts to inventory
+      lineinfile:
+        path: "{{ inventory_file }}"
+        line: "{{ item }}"
+        create: yes
+        insertafter: EOF
+      loop: "{{ new_hosts }}"
+
+    - name: Commit inventory changes
+      shell: |
+        cd {{ git_repo_dir }}
+        git add {{ inventory_file }}
+        git commit -m "{{ git_commit_msg }}" || echo 'No changes to commit'
+        git push
+      when: inventory_file is file
