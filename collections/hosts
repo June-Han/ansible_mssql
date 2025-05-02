@@ -2,6 +2,8 @@
 windows2022 ansible_host=192.168.124.225
 
 [windows:vars]
+ansible_become=true
+ansible_become_method=runas
 ansible_user=Administrator
 ansible_password=Password123!
 ansible_port=5985
