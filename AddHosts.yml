@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    inventory_file: "{{ playbook_dir }}/inventory/hosts.ini"
+    inventory_file: "{{ playbook_dir }}/inventory/hosts"
     git_repo_dir: "{{ playbook_dir }}"
     git_commit_msg: "Auto-sync inventory"
 
