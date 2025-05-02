@@ -7,8 +7,8 @@
     git_repo_dir: "{{ playbook_dir }}"
     git_commit_msg: "Auto-sync inventory"
     hosts_group: AAP24
-    hostname: test
-    host_ipaddress: 192.168.124.124
+    hostname: ansible-automation
+    host_ipaddress: 192.168.124.179
     
 
   tasks:
