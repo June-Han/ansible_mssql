@@ -16,3 +16,6 @@ ansible-automation ansible_host=192.168.124.179
 [AAP24]
 test
 ansible_host = 192.168.124.123
+[AAP24]
+test
+ansible_host = 192.168.124.124
