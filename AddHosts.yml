@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    #inventory_file: "/collections/hosts"
+    inventory_file: "{{ playbook_dir }}/inventory/hosts.ini"
     git_repo_dir: "{{ playbook_dir }}"
     git_commit_msg: "Auto-sync inventory"
 
@@ -14,13 +14,22 @@
           - "{{ git_repo_dir }}"
           - "{{ inventory_file }}"
 
+    # - name: Write hosts to inventory
+    #   lineinfile:
+    #     path: "{{ inventory_file }}"
+    #     line: "{{ item }}"
+    #     create: yes
+    #     insertafter: EOF
+    #   loop: "{{ new_hosts }}"
     - name: Write hosts to inventory
-      lineinfile:
+      community.general.ini_file:
         path: "{{ inventory_file }}"
-        line: "{{ item }}"
-        create: yes
-        insertafter: EOF
-      loop: "{{ new_hosts }}"
+        section: "{{ hosts_group }}"
+        section_has_values:
+          - option: "{{ hostname }}"
+          - option: ansible_host
+            value: "{{ host_ipaddress }}"
+        state: present
 
     - name: Commit inventory changes
       shell: |
