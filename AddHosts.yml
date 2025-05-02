@@ -33,7 +33,7 @@
         path: "{{ inventory_file }}"
         section: "{{ hosts_group }}"
         option: "{{ hostname }} ansible_host"
-        value: host_ipaddress
+        value: "{{ host_ipaddress }}"
         state: present
         exclusive: True
 
