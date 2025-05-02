@@ -10,7 +10,9 @@
   tasks:
     - name: Print git repo
       ansible.builtin.debug:
-        var: git_repo_dir
+        msg: 
+          - "{{ git_repo_dir }}"
+          - "{{ inventory_file }}"
 
     - name: Write hosts to inventory
       lineinfile:
