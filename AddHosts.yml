@@ -6,6 +6,10 @@
     inventory_file: "{{ playbook_dir }}/inventory/hosts"
     git_repo_dir: "{{ playbook_dir }}"
     git_commit_msg: "Auto-sync inventory"
+    hosts_group: AAP24
+    hostname: test
+    host_ipaddress: 192.168.124.124
+    
 
   tasks:
     - name: Print git repo
@@ -30,6 +34,8 @@
           - option: ansible_host
             value: "{{ host_ipaddress }}"
         state: present
+        allow_no_value: True
+        exclusive: True
 
     - name: Commit inventory changes
       shell: |
