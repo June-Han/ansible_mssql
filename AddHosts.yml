@@ -29,10 +29,8 @@
       community.general.ini_file:
         path: "{{ inventory_file }}"
         section: "{{ hosts_group }}"
-        section_has_values:
-          - option: "{{ hostname }}"
-          - option: ansible_host
-            value: "{{ host_ipaddress }}"
+        option: ansible_host
+        value: "{{ host_ipaddress }}"
         state: present
         allow_no_value: True
         exclusive: True
