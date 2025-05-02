@@ -9,6 +9,8 @@
     hosts_group: AAP24
     hostname: ansible-automation
     host_ipaddress: 192.168.124.179
+    new_hosts:
+      - ansible-test ansible_host=192.168.124.178
     
 
   tasks:
@@ -18,21 +20,21 @@
           - "{{ git_repo_dir }}"
           - "{{ inventory_file }}"
 
-    # - name: Write hosts to inventory
-    #   lineinfile:
-    #     path: "{{ inventory_file }}"
-    #     line: "{{ item }}"
-    #     create: yes
-    #     insertafter: EOF
-    #   loop: "{{ new_hosts }}"
+    - name: Write hosts to inventory
+      lineinfile:
+        path: "{{ inventory_file }}"
+        line: "{{ item }}"
+        create: yes
+        insertafter: EOF
+      loop: "{{ new_hosts }}"
+
     - name: Write hosts to inventory
       community.general.ini_file:
         path: "{{ inventory_file }}"
         section: "{{ hosts_group }}"
-        option: ansible_host
-        value: "{{ host_ipaddress }}"
+        option: "{{ hostname }} ansible_host"
+        value: host_ipaddress
         state: present
-        allow_no_value: True
         exclusive: True
 
     - name: Commit inventory changes
