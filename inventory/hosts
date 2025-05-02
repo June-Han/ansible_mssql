@@ -14,4 +14,4 @@ ansible_winrm_server_cert_validation=ignore
 [AAP24]
 
 ansible-test ansible_host=192.168.124.178
-ansible-automation ansible_host = host_ipaddress
+ansible-automation ansible_host = 192.168.124.179
