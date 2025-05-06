@@ -12,3 +12,4 @@ ansible_winrm_transport=ntlm
 ansible_winrm_server_cert_validation=ignore
 
 [AAP24]
+ansible-automation ansible_host = 192.168.124.179
