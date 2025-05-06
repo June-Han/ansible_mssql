@@ -1,6 +1,5 @@
 [windows]
 windows2022 ansible_host=192.168.124.225
-windows2022-test ansible_host=192.168.124.178
 
 [windows:vars]
 ansible_become=true
@@ -13,5 +12,3 @@ ansible_winrm_transport=ntlm
 ansible_winrm_server_cert_validation=ignore
 
 [AAP24]
-ansible-automation ansible_host=192.168.124.179
-ansible-test ansible_host=192.168.124.178
