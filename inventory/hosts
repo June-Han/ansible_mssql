@@ -1,5 +1,6 @@
 [windows]
 windows2022 ansible_host=192.168.124.225
+windows2022-test ansible_host=192.168.124.178
 
 [windows:vars]
 ansible_become=true
